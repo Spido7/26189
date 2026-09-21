@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+.pnp
+.pnp.js
+
+# Next.js build output
+.next/
+frontend/.next/
+out/
+build/
+dist/
+
+# Misc
+.DS_Store
+*.pem
+
+# Local env files
+.env*.local
+.env
+
+# TypeScript cache
+*.tsbuildinfo
+next-env.d.ts.bak
+
+# Vercel
+.vercel/
+
+# Temporary artifacts
+.tempmediaStorage/
