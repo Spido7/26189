@@ -219,7 +219,7 @@ export function useCyberStream() {
                   ensembleRiskScore: isThreat ? Math.floor(confidence) : Math.floor(confidence * 0.2),
                   bayesianConfidence: confidence,
                   threatIntelMatch: isThreat,
-                  finalVerdict: isThreat ? "CONFIRMED_THREAT" : "CLEARED_BENIGN",
+                  finalVerdict: (isThreat ? "CONFIRMED_THREAT" : "CLEARED_BENIGN") as "CONFIRMED_THREAT" | "CLEARED_BENIGN",
                   evaluatedAt: now,
                 },
               },
@@ -277,6 +277,9 @@ export function useCyberStream() {
     const ipPrefix = randomSubnet.replace(".0/24", "");
 
     const manualPacket: CyberPacketTemplate = {
+      name: "Injected Threat Entity",
+      ispDhcp: "Dynamic Threat Relay",
+      location: "Offshore Gateway",
       ip: `${ipPrefix}.${ipLastOctet}`,
       mac: Math.random() > 0.5 ? "00:1A:2B:6F:43:89" : "E2:49:11:80:BC:99",
       subnet: randomSubnet,

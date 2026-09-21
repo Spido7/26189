@@ -124,36 +124,31 @@ export const ThreatRadarStream = forwardRef<RadarStreamHandle, ThreatRadarStream
     const onNodeSelectRef = useRef(onNodeSelect);
     onNodeSelectRef.current = onNodeSelect;
 
-    // Track responsive container dimensions with ResizeObserver & auto-recenter
+    // Track responsive container dimensions with debounced resize
     useEffect(() => {
+      let resizeTimer: NodeJS.Timeout;
       const updateSize = () => {
         if (containerRef.current) {
-          const w = containerRef.current.clientWidth || window.innerWidth;
-          const h = containerRef.current.clientHeight || window.innerHeight;
-          setDimensions({ width: w, height: h });
+          const w = containerRef.current.clientWidth || 1000;
+          const h = containerRef.current.clientHeight || 700;
+          setDimensions((prev) => {
+            if (Math.abs(prev.width - w) < 4 && Math.abs(prev.height - h) < 4) {
+              return prev;
+            }
+            return { width: w, height: h };
+          });
         }
       };
+
       updateSize();
-      window.addEventListener("resize", updateSize);
-
-      let resizeTimer: NodeJS.Timeout;
-      const ro = new ResizeObserver(() => {
-        updateSize();
+      const onResize = () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          if (fgRef.current) {
-            fgRef.current.zoomToFit(450, 80);
-          }
-        }, 120);
-      });
+        resizeTimer = setTimeout(updateSize, 100);
+      };
 
-      if (containerRef.current) {
-        ro.observe(containerRef.current);
-      }
-
+      window.addEventListener("resize", onResize);
       return () => {
-        window.removeEventListener("resize", updateSize);
-        ro.disconnect();
+        window.removeEventListener("resize", onResize);
         clearTimeout(resizeTimer);
       };
     }, []);
@@ -310,33 +305,18 @@ export const ThreatRadarStream = forwardRef<RadarStreamHandle, ThreatRadarStream
       fgRef.current.d3ReheatSimulation();
     }, [visibleNodes]);
 
-    // Automatically center the canvas whenever the selected syndicate changes or on initial nodes
+    // Automatically center the canvas whenever the selected syndicate changes
     useEffect(() => {
       if (!fgRef.current) return;
-      const timer1 = setTimeout(() => {
-        handleAutoCenter();
-        // Automatically select the primary node for the active group
-        if (selectedCaseId === "FIR-0104/2026" || selectedCaseId === "JAMTARA") {
-          const v = nodesRef.current.find((n) => n.id === "node-person-vikram");
-          if (v) onNodeSelectRef.current(v);
-        } else if (selectedCaseId === "FIR-2024-8842" || selectedCaseId === "HAWALA") {
-          const r = nodesRef.current.find((n) => n.id === "node-person-rahman");
-          if (r) onNodeSelectRef.current(r);
-        } else if (selectedCaseId === "FIR-7719/2026" || selectedCaseId === "EXTORTION") {
-          const s = nodesRef.current.find((n) => n.id === "node-person-sokolov");
-          if (s) onNodeSelectRef.current(s);
+      const timer = setTimeout(() => {
+        if (fgRef.current) {
+          fgRef.current.zoomToFit(400, 60);
+          fgRef.current.d3ReheatSimulation();
         }
-      }, 50);
+      }, 150);
 
-      const timer2 = setTimeout(() => {
-        handleAutoCenter();
-      }, 250);
-
-      return () => {
-        clearTimeout(timer1);
-        clearTimeout(timer2);
-      };
-    }, [selectedCaseId, handleAutoCenter]);
+      return () => clearTimeout(timer);
+    }, [selectedCaseId]);
 
     // =========================================================================
     // SEQUENTIAL INGESTION & PIPELINE STAGES

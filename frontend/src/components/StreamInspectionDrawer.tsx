@@ -278,11 +278,20 @@ export const StreamInspectionDrawer: React.FC<StreamInspectionDrawerProps> = ({
                   className={`text-[9px] px-1 font-bold ${
                     selectedNode.modelTelemetry?.stage1Anomaly
                       ? selectedNode.modelTelemetry.stage1Anomaly.isAnomalous
-                        ? "ANOMALOUS"
-                        : "BENIGN"
+                        ? "bg-threat-crimson/20 text-threat-crimson border border-threat-crimson/50"
+                        : "bg-emerald-400/20 text-emerald-400 border border-emerald-400/50"
                       : selectedNode.stage === "INGESTED"
-                      ? "EVALUATING..."
-                      : "QUEUED"}
+                      ? "bg-telecom-cyan/20 text-telecom-cyan border border-telecom-cyan/50"
+                      : "bg-border-subtle text-text-muted"
+                  }`}
+                >
+                  {selectedNode.modelTelemetry?.stage1Anomaly
+                    ? selectedNode.modelTelemetry.stage1Anomaly.isAnomalous
+                      ? "ANOMALOUS"
+                      : "BENIGN"
+                    : selectedNode.stage === "INGESTED"
+                    ? "EVALUATING..."
+                    : "QUEUED"}
                 </span>
               </div>
 

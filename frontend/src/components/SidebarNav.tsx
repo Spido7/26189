@@ -1,122 +1,181 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import {
-  Fingerprint,
-  Upload,
-  PhoneCall,
+  LayoutDashboard,
+  UploadCloud,
+  FileCode2,
+  Database,
   Network,
-  Gavel,
-  Binary,
-  Receipt,
-  Settings,
-  Power,
+  Radio,
+  PhoneCall,
+  GitMerge,
+  Briefcase,
+  Cpu,
+  ShieldAlert,
+  HelpCircle,
+  Activity,
+  ShieldCheck,
+  Link2,
+  History,
+  Lock,
+  Terminal,
   FolderOpen,
+  ChevronRight,
 } from "lucide-react";
-import { ACTIVE_CASES } from "@/data/forensics-mock";
+import { MOCK_CASES } from "@/data/dfir-mock-database";
 
 interface SidebarNavProps {
-  activeTab: string;
-  onTabChange: (tab: string) => void;
-  onIngestClick: () => void;
   selectedCaseId?: string;
   onCaseSelect?: (caseId: string) => void;
+  onIngestClick?: () => void;
+}
+
+interface NavItem {
+  id: string;
+  label: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
+}
+
+interface NavGroup {
+  groupTitle: string;
+  items: NavItem[];
 }
 
 export const SidebarNav: React.FC<SidebarNavProps> = ({
-  activeTab,
-  onTabChange,
-  onIngestClick,
-  selectedCaseId = "ALL",
+  selectedCaseId = "FIR-2024-8842",
   onCaseSelect,
 }) => {
-  const tabs = [
-    { id: "graph", label: "Graph Canvas", icon: Network },
-    { id: "cdr", label: "CDR Records", icon: PhoneCall },
-    { id: "threat-matrix", label: "IP/MAC Threat Matrix", icon: Network },
-    { id: "penal-code", label: "Penal Code Index", icon: Gavel },
-    { id: "hex-dump", label: "Hex/Hash Dump", icon: Binary },
-    { id: "audit-stream", label: "Audit Stream", icon: Receipt },
+  const pathname = usePathname();
+
+  const navigationGroups: NavGroup[] = [
+    {
+      groupTitle: "Overview",
+      items: [
+        { id: "dashboard", label: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+      ],
+    },
+    {
+      groupTitle: "Investigation",
+      items: [
+        { id: "cases", label: "Cases & FIRs", href: "/cases", icon: Briefcase, badge: "3" },
+        { id: "ip-intelligence", label: "IP Intelligence", href: "/ip-intelligence", icon: Radio },
+        { id: "graph", label: "Network Graph", href: "/graph", icon: Network, badge: "3D" },
+        { id: "cdr", label: "Telecom CDR", href: "/cdr", icon: PhoneCall },
+      ],
+    },
+    {
+      groupTitle: "Data Pipeline",
+      items: [
+        { id: "ingestion", label: "Evidence Ingestion", href: "/ingestion", icon: UploadCloud, badge: "Live" },
+      ],
+    },
+    {
+      groupTitle: "AI & Forensics",
+      items: [
+        { id: "ai-pipeline", label: "AI Engine & XAI", href: "/ai-engine", icon: Cpu, badge: "DL" },
+        { id: "evidence-vault", label: "Evidence Vault", href: "/evidence", icon: ShieldCheck },
+      ],
+    },
+    {
+      groupTitle: "Governance",
+      items: [
+        { id: "audit-stream", label: "Audit Stream", href: "/audit", icon: Terminal },
+        { id: "access-control", label: "Access Control", href: "/admin", icon: Lock },
+      ],
+    },
   ];
 
   return (
-    <nav className="w-56 border-r border-border-subtle bg-bg-base flex flex-col justify-between shrink-0 z-40 text-xs font-mono select-none">
-      {/* ================= TOP SECTION ================= */}
-      <div className="flex flex-col">
-        {/* Cluster Header */}
-        <div className="p-2.5 border-b border-border-subtle flex items-center gap-2 bg-surface-card/40">
-          <div className="w-7 h-7 bg-surface-overlay border border-border-highlight flex items-center justify-center text-telecom-cyan">
-            <Fingerprint className="w-4 h-4 text-telecom-cyan" />
-          </div>
-          <div className="overflow-hidden leading-tight">
-            <div className="font-mono text-[10px] font-bold text-text-primary tracking-wider uppercase">
-              NODE CLUSTERS
+    <aside className="w-60 border-r border-border-subtle bg-bg-base flex flex-col justify-between shrink-0 z-40 text-xs font-sans select-none overflow-y-auto custom-scrollbar">
+      {/* ================= NAV ITEMS LIST ================= */}
+      <div className="flex flex-col py-3 px-2 space-y-4">
+        {navigationGroups.map((group) => (
+          <div key={group.groupTitle} className="space-y-1">
+            <div className="text-[11px] font-semibold text-text-muted px-2.5 py-1 tracking-wider uppercase">
+              {group.groupTitle}
             </div>
-            <div className="text-[9px] text-emerald-400 truncate font-semibold">
-              Neo4j: CONNECTED (42.8k)
+
+            <div className="space-y-0.5">
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  pathname === item.href ||
+                  (item.href !== "/dashboard" && pathname.startsWith(item.href)) ||
+                  (pathname === "/" && item.href === "/dashboard");
+
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={`flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs font-medium transition-all group cursor-pointer ${
+                      isActive
+                        ? "bg-telecom-cyan/15 text-telecom-cyan border border-telecom-cyan/30 font-semibold"
+                        : "text-text-secondary hover:text-text-primary hover:bg-surface-card"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2.5 truncate">
+                      <Icon
+                        className={`w-4 h-4 shrink-0 transition-colors ${
+                          isActive ? "text-telecom-cyan" : "text-text-muted group-hover:text-text-secondary"
+                        }`}
+                      />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+
+                    {item.badge && (
+                      <span
+                        className={`text-[10px] px-1.5 py-0.2 rounded font-medium tracking-wide shrink-0 ${
+                          isActive
+                            ? "bg-telecom-cyan/20 text-telecom-cyan"
+                            : "bg-surface-overlay text-text-muted border border-border-subtle"
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
             </div>
           </div>
-        </div>
+        ))}
 
-        {/* Ingest CTA */}
-        <div className="p-2">
-          <button
-            type="button"
-            onClick={onIngestClick}
-            className="w-full flex items-center justify-center gap-1.5 py-1.5 bg-surface-overlay hover:bg-border-subtle border border-border-subtle text-text-primary text-[11px] font-medium transition-colors cursor-pointer active:scale-95"
-          >
-            <Upload className="w-3.5 h-3.5 text-telecom-cyan" />
-            <span>Ingest Evidence File</span>
-          </button>
-        </div>
-
-        {/* Nav Tabs List */}
-        <div className="flex flex-col gap-0.5 px-1 py-1">
-          {tabs.map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                onClick={() => onTabChange(tab.id)}
-                className={`px-3 py-2 flex items-center gap-2 text-xs font-mono transition-colors text-left cursor-pointer ${
-                  isActive
-                    ? "bg-surface-card text-telecom-cyan border-l-2 border-telecom-cyan font-bold"
-                    : "text-text-muted hover:text-text-secondary hover:bg-surface-card/50"
-                }`}
-              >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? "text-telecom-cyan" : "text-text-muted"}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active Cases List */}
-        <div className="mt-4 px-3">
-          <div className="text-[9px] uppercase tracking-wider text-text-muted mb-1.5 font-bold flex items-center gap-1">
-            <FolderOpen className="w-3 h-3" />
-            <span>Active Syndicate Cases</span>
+        {/* ================= ACTIVE INVESTIGATIONS LIST ================= */}
+        <div className="pt-3 border-t border-border-subtle">
+          <div className="text-[11px] uppercase tracking-wider text-text-muted px-2.5 mb-2 font-semibold flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <FolderOpen className="w-3.5 h-3.5 text-record-amber" />
+              <span>Active Dossiers</span>
+            </span>
+            <span className="text-[10px] text-text-muted font-normal">FIR</span>
           </div>
-          <div className="space-y-1 text-[10px]">
-            {ACTIVE_CASES.map((c) => {
+
+          <div className="space-y-1">
+            {MOCK_CASES.map((c) => {
               const isSelected = selectedCaseId === c.id;
               return (
                 <button
                   key={c.id}
                   type="button"
                   onClick={() => onCaseSelect?.(c.id)}
-                  className={`w-full text-left p-1.5 border flex items-center justify-between cursor-pointer transition-colors ${
+                  className={`w-full text-left p-2 rounded-md border text-xs transition-all cursor-pointer ${
                     isSelected
-                      ? "bg-surface-card border-telecom-cyan text-telecom-cyan font-bold"
-                      : "bg-surface-overlay border-transparent text-text-muted hover:text-text-secondary hover:border-border-subtle"
+                      ? "bg-surface-card border-telecom-cyan/60 text-telecom-cyan font-medium"
+                      : "bg-surface-card/40 border-border-subtle/60 text-text-muted hover:text-text-secondary hover:border-border-highlight"
                   }`}
                 >
-                  <span className="truncate">{c.label}</span>
-                  <span className={`text-[8px] px-1 ${isSelected ? "bg-telecom-cyan/20 text-telecom-cyan" : "bg-record-amber/20 text-record-amber"}`}>
-                    {c.tag}
-                  </span>
+                  <div className="flex justify-between items-center">
+                    <span className="font-mono font-medium truncate text-text-primary">{c.id}</span>
+                    <span className="text-[9px] px-1.5 py-0.2 rounded bg-record-amber/15 text-record-amber shrink-0 font-medium">
+                      {c.priority}
+                    </span>
+                  </div>
+                  <div className="text-[10px] text-text-muted truncate mt-0.5">{c.title}</div>
                 </button>
               );
             })}
@@ -124,24 +183,17 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
         </div>
       </div>
 
-
-      {/* ================= FOOTER LINKS ================= */}
-      <div className="border-t border-border-subtle p-2 space-y-1">
-        <button
-          type="button"
-          className="w-full text-text-muted hover:text-text-primary flex items-center gap-2 px-2 py-1.5 text-[11px] transition-colors cursor-pointer hover:bg-surface-card"
-        >
-          <Settings className="w-3.5 h-3.5" />
-          <span>Engine Config</span>
-        </button>
-        <button
-          type="button"
-          className="w-full text-text-muted hover:text-threat-crimson flex items-center gap-2 px-2 py-1.5 text-[11px] transition-colors cursor-pointer hover:bg-surface-card"
-        >
-          <Power className="w-3.5 h-3.5" />
-          <span>Disconnect Session</span>
-        </button>
+      {/* ================= FOOTER ================= */}
+      <div className="p-3 border-t border-border-subtle bg-surface-card/40 text-[10px] text-text-muted space-y-1">
+        <div className="flex justify-between items-center">
+          <span>Station ID:</span>
+          <span className="text-text-secondary font-mono">SOC-NODE-04</span>
+        </div>
+        <div className="flex justify-between items-center">
+          <span>Encryption:</span>
+          <span className="text-emerald-400 font-mono">AES-256 GCM</span>
+        </div>
       </div>
-    </nav>
+    </aside>
   );
 };

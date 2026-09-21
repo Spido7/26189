@@ -15,8 +15,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "DFIR // CORE-FORENSICS - Node Investigation Terminal",
-  description: "Minimalist Digital Forensics & Incident Response Command Center",
+  title: "DFIR // INTELLIGENCE COMMAND - Law Enforcement Cyber Forensics Workstation",
+  description: "Law-enforcement cyber-intelligence, criminal network knowledge graph, and digital forensics workstation.",
 };
 
 export default function RootLayout({

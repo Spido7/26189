@@ -60,9 +60,11 @@ export const EntityGraphCanvas: React.FC<EntityGraphCanvasProps> = ({
   });
 
   const visibleNodeIds = new Set(visibleNodes.map((n) => n.id));
-  const visibleEdges = edges.filter(
-    (e) => visibleNodeIds.has(e.fromId) && visibleNodeIds.has(e.toId)
-  );
+  const visibleEdges = edges.filter((e) => {
+    const fromId = e.fromId || (typeof e.source === "object" ? (e.source as any)?.id : e.source);
+    const toId = e.toId || (typeof e.target === "object" ? (e.target as any)?.id : e.target);
+    return Boolean(fromId && toId && visibleNodeIds.has(fromId) && visibleNodeIds.has(toId));
+  });
 
   const getNodeIcon = (type: EntityType) => {
     switch (type) {
@@ -104,7 +106,7 @@ export const EntityGraphCanvas: React.FC<EntityGraphCanvasProps> = ({
         case "node-btc-wallet":
           return { x: 82, y: 85 };
         default:
-          return { x: node.xPercent, y: node.yPercent };
+          return { x: node.xPercent ?? 50, y: node.yPercent ?? 50 };
       }
     }
     if (layoutMode === "radial") {
@@ -124,10 +126,10 @@ export const EntityGraphCanvas: React.FC<EntityGraphCanvasProps> = ({
         case "node-fir-doc":
           return { x: 62, y: 20 };
         default:
-          return { x: node.xPercent, y: node.yPercent };
+          return { x: node.xPercent ?? 50, y: node.yPercent ?? 50 };
       }
     }
-    return { x: node.xPercent, y: node.yPercent };
+    return { x: node.xPercent ?? 50, y: node.yPercent ?? 50 };
   };
 
   return (
