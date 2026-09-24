@@ -3,72 +3,128 @@
 @tailwind utilities;
 
 :root {
-  --background: #09090b;
-  --foreground: #f4f4f5;
+  --background: #0c0e12;
+  --foreground: #f1f5f9;
 }
 
 body {
-  background-color: #09090b;
-  color: #f4f4f5;
-  font-family: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #0c0e12;
+  color: #f1f5f9;
+  font-family: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
   overflow: hidden;
+  user-select: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle Technical Grid Overlay */
-.bg-tech-grid {
-  background-size: 32px 32px;
+/* Industrial Technical Grid */
+.bg-industrial-grid {
+  background-size: 28px 28px;
   background-image: 
-    linear-gradient(to right, rgba(39, 39, 42, 0.25) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(39, 39, 42, 0.25) 1px, transparent 1px);
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
 }
 
-/* Modern Sleek Scrollbar */
+/* Industrial Crosshair Dots Overlay */
+.bg-crosshair-dots {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1px, transparent 1px);
+}
+
+/* Safety Hazard Warning Stripes Accent */
+.hazard-stripes {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(245, 158, 11, 0.18),
+    rgba(245, 158, 11, 0.18) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+}
+
+.hazard-stripes-subtle {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(148, 163, 184, 0.06),
+    rgba(148, 163, 184, 0.06) 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+/* Machined Steel Border Box */
+.machined-panel {
+  background-color: #13171e;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  position: relative;
+}
+
+.machined-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 4px;
+  border-top: 1.5px solid #f59e0b;
+  border-left: 1.5px solid #f59e0b;
+}
+
+.machined-panel::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 4px;
+  height: 4px;
+  border-bottom: 1.5px solid #38bdf8;
+  border-right: 1.5px solid #38bdf8;
+}
+
+/* Heavy Duty Industrial Scrollbar */
 .custom-scrollbar::-webkit-scrollbar {
   width: 5px;
   height: 5px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0e1015;
+  border-left: 1px solid rgba(148, 163, 184, 0.08);
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 9999px;
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 2px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: #f59e0b;
 }
 
-/* Pulsing Status Dot */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.85); }
+/* Status Indicator Pulse */
+@keyframes industrial-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.92);
+    box-shadow: 0 0 0 4px rgba(245, 158, 11, 0);
+  }
 }
+
 .status-pulse {
-  animation: pulse-dot 2s infinite ease-in-out;
+  animation: industrial-pulse 2s infinite ease-in-out;
 }
 
-/* Radar Sweep Animation */
-@keyframes radar-sweep {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.radar-sweep {
-  animation: radar-sweep 4s linear infinite;
-  transform-origin: center center;
+/* Industrial Card Hover */
+.industrial-card-hover {
+  transition: all 0.15s ease-in-out;
 }
 
-/* Subtle glow utilities */
-.threat-glow {
-  box-shadow: 0 0 16px -2px rgba(239, 68, 68, 0.25);
-}
-
-.cyan-glow {
-  box-shadow: 0 0 16px -2px rgba(6, 182, 212, 0.25);
-}
-
-.card-elevated {
-  background-color: #121215;
-  border: 1px solid rgba(39, 39, 42, 0.7);
-  border-radius: 0.5rem;
+.industrial-card-hover:hover {
+  border-color: rgba(245, 158, 11, 0.4);
+  background-color: #171d27;
 }

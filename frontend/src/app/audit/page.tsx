@@ -17,22 +17,19 @@ import {
   User,
   Hash,
   AlertCircle,
-  CheckCircle,
-  FileText,
-  Activity,
 } from "lucide-react";
 import { MOCK_AUDIT_LOGS, CURRENT_INVESTIGATOR } from "@/data/dfir-mock-database";
 import { AuditLogEntry, AuditActionType } from "@/types/audit";
 
 const ACTION_FILTERS: { label: string; value: AuditActionType | "ALL" }[] = [
-  { label: "All Events", value: "ALL" },
-  { label: "Logins", value: "LOGIN" },
-  { label: "Cases Opened", value: "CASE_OPENED" },
-  { label: "Evidence Viewed", value: "EVIDENCE_VIEWED" },
-  { label: "Graph Queries", value: "GRAPH_QUERIED" },
-  { label: "AI Assessments", value: "AI_ANALYSIS_EXECUTED" },
-  { label: "Integrity Checks", value: "EVIDENCE_INTEGRITY_VERIFIED" },
-  { label: "Exports", value: "EVIDENCE_EXPORTED" },
+  { label: "ALL EVENTS", value: "ALL" },
+  { label: "LOGINS", value: "LOGIN" },
+  { label: "CASE OPENED", value: "CASE_OPENED" },
+  { label: "EVIDENCE VIEWED", value: "EVIDENCE_VIEWED" },
+  { label: "GRAPH QUERIES", value: "GRAPH_QUERIED" },
+  { label: "AI ASSESSMENTS", value: "AI_ANALYSIS_EXECUTED" },
+  { label: "INTEGRITY CHECKS", value: "EVIDENCE_INTEGRITY_VERIFIED" },
+  { label: "EXPORTS", value: "EVIDENCE_EXPORTED" },
 ];
 
 export default function AuditStreamPage() {
@@ -63,77 +60,78 @@ export default function AuditStreamPage() {
 
   return (
     <WorkstationShell activeCaseId="GLOBAL_SYSTEM">
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-sans select-none">
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-mono select-none">
         {/* ================= 1. HEADER ================= */}
-        <div className="px-5 py-3.5 border-b border-border-subtle bg-surface-card/70 backdrop-blur-md flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
+        <div className="p-3 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-lg border border-telecom-cyan/30 bg-telecom-cyan-dim/40 text-telecom-cyan">
+            <div className="p-2 border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan">
               <Terminal className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm font-semibold text-text-primary tracking-tight">
-                  Cryptographic Audit Stream
+                <h1 className="text-sm font-bold text-text-primary tracking-wider uppercase">
+                  CRYPTOGRAPHIC IMMUTABLE AUDIT STREAM
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-400">
-                  Append-Only Merkle Chain
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-emerald-500/40 bg-emerald-500/10 text-emerald-400">
+                  APPEND-ONLY MERKLE CHAIN
                 </span>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded-full border border-telecom-cyan/30 bg-telecom-cyan-dim/30 text-telecom-cyan">
-                  LEO Compliance
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan">
+                  LEO SURVEILLANCE COMPLIANCE
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
-                Zero-trust audit recording: Every query, case view, model inference, and export is signed in tamper-evident ledger.
+              <p className="text-[11px] text-text-muted">
+                Zero-trust audit recording: Every query, case view, model inference, and Section 65B export is cryptographically signed.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Search className="w-3.5 h-3.5 absolute left-3 text-text-muted pointer-events-none" />
+              <Search className="w-3.5 h-3.5 absolute left-2.5 text-text-muted pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search audit ID, officer, resource..."
-                className="pl-9 pr-3 py-1.5 bg-bg-base border border-border-subtle rounded-lg text-xs text-text-primary w-60 md:w-72 focus:outline-hidden focus:border-telecom-cyan/60 placeholder:text-text-muted"
+                placeholder="SEARCH AUDIT ID / OFFICER / RESOURCE..."
+                className="pl-8 pr-3 py-1.5 bg-bg-base border border-border-subtle text-xs text-text-primary w-64 md:w-80 focus:outline-none focus:border-telecom-cyan placeholder:text-text-muted"
               />
             </div>
             <button
               type="button"
               onClick={() => alert("Audit log export generated.")}
-              className="px-3.5 py-1.5 bg-telecom-cyan-dim/50 hover:bg-telecom-cyan/20 border border-telecom-cyan/30 text-telecom-cyan text-xs font-medium rounded-lg cursor-pointer transition-colors flex items-center gap-1.5 shadow-xs"
+              className="px-3 py-1.5 bg-telecom-cyan/10 hover:bg-telecom-cyan/20 border border-telecom-cyan/40 text-telecom-cyan text-xs font-bold cursor-pointer transition-colors flex items-center gap-1.5"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>Export Ledger</span>
+              <span>EXPORT DUMP</span>
             </button>
           </div>
         </div>
 
         {/* ================= 2. MERKLE INTEGRITY STRIP ================= */}
-        <div className="px-5 py-2 bg-surface-card/40 border-b border-border-subtle flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+        <div className="px-3 py-1.5 bg-surface-card border-b border-border-subtle flex flex-wrap items-center justify-between gap-2 text-xs shrink-0">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md">
+            <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-emerald-400 font-medium text-xs">Chain Validated (0 Breaks)</span>
+              <span className="text-text-primary font-bold">CHAIN INTEGRITY:</span>
+              <span className="text-emerald-400 font-bold">VALIDATED (0 HASH BREAKS)</span>
             </div>
-            <span className="text-text-muted text-xs">
-              Block Height: <strong className="text-text-primary font-mono">{logs.length} entries</strong>
-            </span>
+            <span className="text-border-subtle">|</span>
+            <div className="text-text-muted text-[11px]">
+              CURRENT BLOCK HEIGHT: <strong className="text-text-primary font-mono">{logs.length} ENTRIES</strong>
+            </div>
           </div>
 
           {/* Action Filter Buttons */}
-          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5">
+          <div className="flex items-center gap-1 overflow-x-auto">
             {ACTION_FILTERS.map((f) => (
               <button
                 key={f.value}
                 type="button"
                 onClick={() => setSelectedAction(f.value)}
-                className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all cursor-pointer ${
-                  selectedAction === f.value
-                    ? "bg-telecom-cyan-dim/60 text-telecom-cyan border border-telecom-cyan/30 shadow-xs"
-                    : "text-text-muted hover:text-text-primary hover:bg-surface-card"
-                }`}
+                className={`px-2 py-0.5 border text-[10px] transition-colors cursor-pointer ${selectedAction === f.value
+                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 font-bold"
+                    : "border-border-subtle text-text-muted hover:text-text-primary"
+                  }`}
               >
                 {f.label}
               </button>
@@ -144,60 +142,53 @@ export default function AuditStreamPage() {
         {/* ================= 3. WORKSPACE SPLIT ================= */}
         <div className="flex-1 flex overflow-hidden">
           {/* Left: Append-only Event Ledger */}
-          <div className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-2 bg-bg-base">
-            <div className="space-y-2">
+          <div className="flex-1 overflow-y-auto p-3 custom-scrollbar space-y-2 bg-bg-base">
+            <div className="space-y-1.5">
               {filteredLogs.map((log) => {
                 const isSelected = selectedLog?.id === log.id;
                 return (
                   <div
                     key={log.id}
                     onClick={() => setSelectedLogId(log.id)}
-                    className={`p-3.5 rounded-xl border transition-all cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-3 ${
-                      isSelected
-                        ? "bg-surface-card border-telecom-cyan/60 shadow-xs text-text-primary"
-                        : "bg-surface-card/50 border-border-subtle text-text-muted hover:border-border-highlight hover:bg-surface-card"
-                    }`}
+                    className={`p-2.5 border transition-colors cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-2 ${isSelected
+                        ? "bg-surface-card border-telecom-cyan text-text-primary"
+                        : "bg-surface-card/60 border-border-subtle text-text-muted hover:border-border-highlight"
+                      }`}
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-xs font-mono font-semibold text-telecom-cyan shrink-0 mt-0.5 bg-telecom-cyan-dim/30 px-1.5 py-0.5 rounded border border-telecom-cyan/20">
+                      <span className="text-xs font-mono font-bold text-telecom-cyan shrink-0 mt-0.5">
                         {log.id}
                       </span>
 
-                      <div className="space-y-1">
+                      <div>
                         <div className="flex items-center gap-2 flex-wrap">
                           <span
-                            className={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${
-                              log.action === "LOGIN"
-                                ? "border-blue-500/30 bg-blue-500/10 text-blue-300"
+                            className={`px-1.5 py-0.2 text-[9px] font-bold border ${log.action === "LOGIN"
+                                ? "border-blue-500/40 bg-blue-500/10 text-blue-300"
                                 : log.action === "EVIDENCE_EXPORTED"
-                                ? "border-amber-500/30 bg-amber-500/10 text-amber-300"
-                                : log.action === "EVIDENCE_INTEGRITY_VERIFIED"
-                                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-400"
-                                : "border-purple-500/30 bg-purple-500/10 text-purple-300"
-                            }`}
+                                  ? "border-amber-500/40 bg-amber-500/10 text-amber-300"
+                                  : log.action === "EVIDENCE_INTEGRITY_VERIFIED"
+                                    ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
+                                    : "border-purple-500/40 bg-purple-500/10 text-purple-300"
+                              }`}
                           >
                             {log.action}
                           </span>
-                          <span className="text-xs font-semibold text-text-primary">
+                          <span className="text-xs font-bold text-text-primary">
                             {log.analystName} ({log.role})
                           </span>
-                          <span className="text-[11px] text-text-muted font-mono bg-bg-base/80 px-1.5 py-0.2 rounded">
-                            {log.sourceIp}
-                          </span>
+                          <span className="text-[10px] text-text-muted font-mono">[{log.sourceIp}]</span>
                         </div>
 
-                        <div className="text-xs text-text-secondary">
-                          Resource: <strong className="text-text-primary font-mono">{log.resourceId}</strong> ({log.resourceType}) · Case: <strong className="text-telecom-cyan font-mono">{log.caseId}</strong>
+                        <div className="text-[11px] text-text-secondary mt-1">
+                          RESOURCE: <strong className="text-text-primary">{log.resourceId}</strong> ({log.resourceType}) | CASE: <strong className="text-telecom-cyan">{log.caseId}</strong>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex md:flex-col items-end justify-between text-xs text-text-muted shrink-0 gap-1">
-                      <span className="font-mono text-[11px]">{log.timestamp}</span>
-                      <span className="text-emerald-400 font-semibold text-[11px] flex items-center gap-1">
-                        <CheckCircle className="w-3 h-3" />
-                        {log.result}
-                      </span>
+                    <div className="flex md:flex-col items-end justify-between text-[10px] text-text-muted shrink-0">
+                      <span>{log.timestamp}</span>
+                      <span className="text-emerald-400 font-bold uppercase">{log.result}</span>
                     </div>
                   </div>
                 );
@@ -207,69 +198,66 @@ export default function AuditStreamPage() {
 
           {/* Right: Cryptographic Chain Detail Drawer */}
           {selectedLog && (
-            <div className="w-full md:w-96 border-l border-border-subtle bg-surface-card p-4 flex flex-col shrink-0 overflow-y-auto custom-scrollbar space-y-4">
-              <div className="text-xs font-semibold text-text-primary pb-2 border-b border-border-subtle flex items-center justify-between">
-                <span>Event Provenance Inspection</span>
-                <span className="text-telecom-cyan font-mono font-medium">{selectedLog.id}</span>
+            <div className="w-full md:w-96 border-l border-border-subtle bg-surface-card p-3 flex flex-col shrink-0 overflow-y-auto custom-scrollbar space-y-3">
+              <div className="text-xs font-bold text-text-primary uppercase tracking-wider pb-1.5 border-b border-border-subtle flex items-center justify-between">
+                <span>EVENT PROVENANCE INSPECTION</span>
+                <span className="text-telecom-cyan font-mono">{selectedLog.id}</span>
               </div>
 
               {/* Hashes: Current & Previous Block */}
-              <div className="space-y-2.5 text-xs">
-                <div className="p-3 bg-bg-base/80 border border-border-subtle rounded-lg space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] text-text-muted font-medium">
-                    <span>Current Event SHA-256 Hash</span>
+              <div className="space-y-2 text-xs">
+                <div className="p-2.5 bg-bg-base border border-border-subtle space-y-1">
+                  <div className="flex items-center justify-between text-[10px] text-text-muted">
+                    <span className="uppercase font-bold">CURRENT EVENT SHA-256 HASH:</span>
                     <Hash className="w-3 h-3 text-telecom-cyan" />
                   </div>
-                  <div className="text-[11px] font-mono text-emerald-400 break-all leading-relaxed bg-emerald-950/20 p-2 rounded border border-emerald-500/20">
+                  <div className="text-[11px] font-mono text-emerald-400 break-all leading-tight">
                     {selectedLog.eventHash}
                   </div>
                 </div>
 
-                <div className="p-3 bg-bg-base/80 border border-border-subtle rounded-lg space-y-1.5">
-                  <div className="flex items-center justify-between text-[11px] text-text-muted font-medium">
-                    <span>Previous Block Anchor Hash</span>
+                <div className="p-2.5 bg-bg-base border border-border-subtle space-y-1">
+                  <div className="flex items-center justify-between text-[10px] text-text-muted">
+                    <span className="uppercase font-bold">PREVIOUS BLOCK ANCHOR HASH:</span>
                     <Link2 className="w-3 h-3 text-text-muted" />
                   </div>
-                  <div className="text-[11px] font-mono text-text-muted break-all leading-relaxed bg-surface-overlay/50 p-2 rounded border border-border-subtle/60">
+                  <div className="text-[11px] font-mono text-text-muted break-all leading-tight">
                     {selectedLog.previousHash}
                   </div>
                 </div>
               </div>
 
               {/* Metadata details */}
-              <div className="space-y-3 text-xs pt-2 border-t border-border-subtle">
+              <div className="space-y-2 text-xs pt-1 border-t border-border-subtle">
                 <div>
-                  <span className="text-[11px] text-text-muted block">Investigator Identity</span>
-                  <span className="text-text-primary font-semibold text-xs mt-0.5 block">{selectedLog.analystName}</span>
-                  <span className="text-[11px] text-text-muted font-mono block">User ID: {selectedLog.userId}</span>
+                  <span className="text-[10px] text-text-muted block">INVESTIGATOR IDENTITY:</span>
+                  <span className="text-text-primary font-bold">{selectedLog.analystName}</span>
+                  <span className="text-[10px] text-text-muted block">USER ID: {selectedLog.userId}</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-text-muted block">Source IP Address</span>
-                  <span className="text-text-primary font-mono text-xs mt-0.5 block">{selectedLog.sourceIp}</span>
+                  <span className="text-[10px] text-text-muted block">SOURCE IP ADDRESS:</span>
+                  <span className="text-text-primary font-mono">{selectedLog.sourceIp}</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-text-muted block">User Agent Client</span>
-                  <span className="text-text-secondary text-[11px] break-all font-mono mt-0.5 block bg-bg-base/60 p-1.5 rounded">{selectedLog.userAgent}</span>
+                  <span className="text-[10px] text-text-muted block">USER AGENT CLIENT:</span>
+                  <span className="text-text-secondary text-[11px] break-all">{selectedLog.userAgent}</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-text-muted block">Target Resource</span>
-                  <span className="text-telecom-cyan font-mono font-medium text-xs mt-0.5 block">{selectedLog.resourceId}</span>
+                  <span className="text-[10px] text-text-muted block">TARGET RESOURCE:</span>
+                  <span className="text-telecom-cyan font-bold">{selectedLog.resourceId}</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-text-muted block">Associated Case</span>
-                  <span className="text-text-primary font-mono text-xs mt-0.5 block">{selectedLog.caseId}</span>
+                  <span className="text-[10px] text-text-muted block">ASSOCIATED CASE:</span>
+                  <span className="text-text-primary">{selectedLog.caseId}</span>
                 </div>
 
                 <div>
-                  <span className="text-[11px] text-text-muted block">Verification Status</span>
-                  <span className="text-emerald-400 font-semibold text-xs mt-0.5 flex items-center gap-1">
-                    <CheckCircle className="w-3 h-3" />
-                    {selectedLog.result}
-                  </span>
+                  <span className="text-[10px] text-text-muted block">VERIFICATION RESULT:</span>
+                  <span className="text-emerald-400 font-bold">{selectedLog.result}</span>
                 </div>
               </div>
             </div>

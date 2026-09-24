@@ -4,6 +4,7 @@ export interface CyberPacketTemplate {
   id?: string;
   syndicateGroup?: "JAMTARA_MUMBAI" | "HAWALA_BENGALURU" | "EXTORTION_DELHI";
   caseRef?: string;
+  timestamp?: string;
   ip: string;
   mac: string;
   subnet: string;

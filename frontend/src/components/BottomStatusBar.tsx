@@ -32,79 +32,54 @@ export const BottomStatusBar: React.FC<BottomStatusBarProps> = ({
   }, []);
 
   return (
-    <footer className="w-full h-7 border-t border-border-subtle bg-surface-card px-4 flex items-center justify-between text-xs font-sans select-none text-text-muted shrink-0 z-40">
-      {/* Left: Core Connections */}
-      <div className="flex items-center gap-4 overflow-hidden text-[11px]">
-        {/* System Status */}
+    <footer className="w-full h-7 border-t border-slate-700/40 bg-[#0b0d11] px-4 flex items-center justify-between text-[10px] font-mono select-none text-slate-400 shrink-0 z-40">
+      {/* Left: System Status */}
+      <div className="flex items-center gap-3 overflow-hidden">
         <div className="flex items-center gap-1.5 shrink-0">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 status-pulse" />
-          <span className="font-medium text-text-primary">System Operational</span>
+          <span className="w-1.5 h-1.5 bg-emerald-400 status-pulse" />
+          <span className="text-emerald-300 font-bold tracking-wider">ONLINE // CALIBRATED</span>
         </div>
 
-        <span className="text-border-subtle">|</span>
+        <span className="text-slate-700">|</span>
 
-        {/* Backend Connection */}
-        <div className="flex items-center gap-1.5 shrink-0">
-          <Wifi className="w-3.5 h-3.5 text-telecom-cyan" />
-          <span>FastAPI:</span>
-          <span className="text-text-primary font-medium">
-            {isLive ? "Connected (:8000)" : "Local Adapter"}
-          </span>
+        <div className="flex items-center gap-1 shrink-0">
+          <span className="text-slate-500">ENGINE:</span>
+          <span className="text-slate-300 font-bold">FASTAPI:8000</span>
         </div>
 
-        <span className="text-border-subtle hidden sm:inline">|</span>
+        <span className="text-slate-700">|</span>
 
-        {/* Graph Connection */}
-        <div className="hidden sm:flex items-center gap-1.5 shrink-0">
-          <Database className="w-3.5 h-3.5 text-purple-400" />
-          <span>Neo4j:</span>
-          <span className="text-purple-300 font-medium">Online (42.8k nodes)</span>
+        <div className="flex items-center gap-1 shrink-0">
+          <span className="text-slate-500">NEO4J:</span>
+          <span className="text-sky-300 font-bold">42,890 NODES</span>
         </div>
 
-        <span className="text-border-subtle hidden md:inline">|</span>
+        <span className="text-slate-700">|</span>
 
-        {/* AI Engine Status */}
-        <div className="hidden md:flex items-center gap-1.5 shrink-0">
-          <Cpu className="w-3.5 h-3.5 text-emerald-400" />
-          <span>DL Model:</span>
-          <span className="text-emerald-400 font-medium">Stage 1-3 (GPU-0)</span>
+        <div className="flex items-center gap-1 shrink-0">
+          <span className="text-slate-500">PIPELINE:</span>
+          <span className="text-amber-400 font-bold">TENSORRT-v3.4</span>
         </div>
       </div>
 
-      {/* Right: Active Case, Security, Demo Mode Indicator */}
-      <div className="flex items-center gap-3.5 shrink-0 text-[11px]">
-        {/* Synchronization Timer */}
-        <div className="hidden lg:flex items-center gap-1.5 text-text-muted">
-          <RefreshCw className="w-3 h-3" />
-          <span>Synced {lastSyncSeconds}s ago</span>
+      {/* Right: Last Sync, Active Case */}
+      <div className="flex items-center gap-3 shrink-0">
+        <div className="hidden md:flex items-center gap-1 text-slate-400">
+          <span className="text-slate-500">CLOCK:</span>
+          <span className="font-mono text-amber-300/90">{lastSyncSeconds}s LATENCY</span>
         </div>
 
-        <span className="text-border-subtle hidden lg:inline">|</span>
+        <span className="text-slate-700 hidden md:inline">|</span>
 
-        {/* Current Case */}
-        <div className="flex items-center gap-1.5 text-text-secondary">
-          <FolderOpen className="w-3.5 h-3.5 text-record-amber" />
-          <span>Case:</span>
-          <span className="font-mono font-medium text-record-amber">{activeCaseId}</span>
+        <div className="flex items-center gap-1">
+          <span className="text-slate-500">DOSSIER:</span>
+          <span className="text-amber-300 font-bold px-1 bg-amber-500/10 border border-amber-500/20">{activeCaseId}</span>
         </div>
 
-        <span className="text-border-subtle">|</span>
+        <span className="text-slate-700">|</span>
 
-        {/* Environment Indicator */}
-        <div
-          className={`flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-medium ${
-            isLive
-              ? "bg-emerald-950/60 border border-emerald-500/40 text-emerald-400"
-              : "bg-amber-950/60 border border-amber-500/40 text-amber-400"
-          }`}
-          title={isLive ? "Live Law Enforcement Connection Active" : "Simulated Offline Forensic Demo Mode Active"}
-        >
-          <span
-            className={`w-1.5 h-1.5 rounded-full ${
-              isLive ? "bg-emerald-400 status-pulse" : "bg-amber-400"
-            }`}
-          />
-          <span>{isLive ? "Live Mode" : "Demo Mode"}</span>
+        <div className="flex items-center gap-1 px-1.5 py-0.2 rounded-none text-[9px] bg-[#161b22] text-slate-300 border border-slate-700/60 font-bold">
+          <span>MIL-STD-810H</span>
         </div>
       </div>
     </footer>

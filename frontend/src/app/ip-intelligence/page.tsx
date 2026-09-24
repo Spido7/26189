@@ -369,23 +369,23 @@ function IpIntelligenceContent() {
 
   return (
     <WorkstationShell activeCaseId={selectedIP.caseAssociation.split(" ")[0]}>
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-sans select-none">
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-mono select-none">
         {/* ================= 1. WORKSPACE HEADER & SEARCH ================= */}
-        <div className="p-3.5 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
+        <div className="p-3 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan flex items-center justify-center">
+            <div className="p-2 border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan">
               <Radio className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-text-primary tracking-wide">
-                  IP Intelligence &amp; Entity Resolution
+                <h1 className="text-sm font-bold text-text-primary tracking-wider uppercase">
+                  IP INTELLIGENCE & ENTITY RESOLUTION
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded border border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan">
-                  Surveillance &amp; Attribution
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan">
+                  LEO SURVEILLANCE SUITE
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-[11px] text-text-muted">
                 Observed network telemetries, ISP subscriber mapping, and multi-tier evidentiary correlation.
               </p>
             </div>
@@ -394,28 +394,28 @@ function IpIntelligenceContent() {
           {/* Search Input Bar */}
           <form onSubmit={handleSearch} className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Search className="w-4 h-4 absolute left-3 text-text-muted pointer-events-none" />
+              <Search className="w-3.5 h-3.5 absolute left-2.5 text-text-muted pointer-events-none" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search IP, CIDR, or Hostname..."
-                className="pl-9 pr-3 py-1.5 bg-bg-base rounded-md border border-border-subtle text-xs text-text-primary w-64 md:w-80 focus:outline-none focus:border-telecom-cyan placeholder:text-text-muted font-mono"
+                placeholder="SEARCH IP / CIDR / HOSTNAME..."
+                className="pl-8 pr-3 py-1.5 bg-bg-base border border-border-subtle text-xs text-text-primary w-64 md:w-80 focus:outline-none focus:border-telecom-cyan placeholder:text-text-muted"
               />
             </div>
             <button
               type="submit"
-              className="px-3.5 py-1.5 bg-telecom-cyan/10 hover:bg-telecom-cyan/20 border border-telecom-cyan/40 text-telecom-cyan rounded-md text-xs font-semibold transition-colors cursor-pointer"
+              className="px-3 py-1.5 bg-telecom-cyan/10 hover:bg-telecom-cyan/20 border border-telecom-cyan/40 text-telecom-cyan text-xs font-bold transition-colors cursor-pointer"
             >
-              Lookup
+              QUERY
             </button>
           </form>
         </div>
 
         {/* Quick Selector Pills */}
-        <div className="px-4 py-2 border-b border-border-subtle/60 bg-bg-base flex items-center justify-between text-xs shrink-0 overflow-x-auto">
+        <div className="px-3 py-1.5 border-b border-border-subtle/60 bg-bg-base flex items-center justify-between text-[11px] shrink-0 overflow-x-auto">
           <div className="flex items-center gap-2 text-text-muted">
-            <span className="text-[11px] font-medium text-text-muted">Quick Targets:</span>
+            <span className="text-[9px] uppercase tracking-wider text-text-muted">QUICK INVESTIGATION TARGETS:</span>
             {Object.keys(KNOWN_IP_PROFILES).map((ip) => (
               <button
                 key={ip}
@@ -425,11 +425,10 @@ function IpIntelligenceContent() {
                   setSelectedIP(KNOWN_IP_PROFILES[ip]);
                   setSearchedNotFound(false);
                 }}
-                className={`px-2.5 py-1 rounded-md border text-xs font-mono transition-colors cursor-pointer ${
-                  selectedIP.ip === ip
-                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 font-semibold"
+                className={`px-2 py-0.5 border text-[10px] transition-colors cursor-pointer ${selectedIP.ip === ip
+                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 font-bold"
                     : "border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-card"
-                }`}
+                  }`}
               >
                 {ip}
               </button>
@@ -437,29 +436,27 @@ function IpIntelligenceContent() {
           </div>
 
           {/* Tab Switcher */}
-          <div className="flex items-center bg-surface-card rounded-md border border-border-subtle p-0.5">
+          <div className="flex items-center border border-border-subtle">
             <button
               type="button"
               onClick={() => setActiveTab("dossier")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "dossier"
-                  ? "bg-telecom-cyan/15 text-telecom-cyan font-semibold"
+              className={`px-3 py-1 text-[11px] font-bold cursor-pointer transition-colors ${activeTab === "dossier"
+                  ? "bg-surface-card text-telecom-cyan border-b-2 border-telecom-cyan"
                   : "text-text-muted hover:text-text-primary"
-              }`}
+                }`}
             >
-              Network Dossier
+              IP NETWORK DOSSIER
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("resolution")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors flex items-center gap-1.5 ${
-                activeTab === "resolution"
-                  ? "bg-telecom-cyan/15 text-telecom-cyan font-semibold"
+              className={`px-3 py-1 text-[11px] font-bold cursor-pointer transition-colors flex items-center gap-1.5 ${activeTab === "resolution"
+                  ? "bg-surface-card text-telecom-cyan border-b-2 border-telecom-cyan"
                   : "text-text-muted hover:text-text-primary"
-              }`}
+                }`}
             >
-              <GitMerge className="w-3.5 h-3.5" />
-              <span>Entity Resolution Flow</span>
+              <GitMerge className="w-3 h-3" />
+              <span>ENTITY RESOLUTION FLOW</span>
             </button>
           </div>
         </div>

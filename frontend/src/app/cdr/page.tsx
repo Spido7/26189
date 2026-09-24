@@ -150,24 +150,24 @@ export default function CdrIntelligencePage() {
 
   return (
     <WorkstationShell activeCaseId="FIR-0104/2026">
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-sans select-none">
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-mono select-none">
         {/* ================= 1. HEADER & SEARCH ================= */}
-        <div className="p-3.5 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
+        <div className="p-3 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan flex items-center justify-center">
+            <div className="p-2 border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan">
               <PhoneCall className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-text-primary tracking-wide">
-                  Call Detail Record (CDR) Intelligence
+                <h1 className="text-sm font-bold text-text-primary tracking-wider uppercase">
+                  TELECOM // CALL DETAIL RECORD (CDR) INTELLIGENCE
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded border border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan">
-                  Requisition &amp; Forensics
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan">
+                  TRAI / DOT AUTHORIZED REQUISITION
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
-                MSISDN, IMEI, and IMSI telephony analysis, cell site triangulation, and communication graphs.
+              <p className="text-[11px] text-text-muted">
+                MSISDN / IMEI / IMSI telephony analysis, cell site triangulation, and communication graphs.
               </p>
             </div>
           </div>
@@ -175,126 +175,122 @@ export default function CdrIntelligencePage() {
           {/* Search Input */}
           <div className="flex items-center gap-2">
             <div className="relative flex items-center">
-              <Search className="w-4 h-4 absolute left-3 text-text-muted pointer-events-none" />
+              <Search className="w-3.5 h-3.5 absolute left-2.5 text-text-muted pointer-events-none" />
               <input
                 type="text"
                 value={searchTarget}
                 onChange={(e) => setSearchTarget(e.target.value)}
-                placeholder="Search MSISDN, IMEI, or IMSI..."
-                className="pl-9 pr-3 py-1.5 bg-bg-base rounded-md border border-border-subtle text-xs text-text-primary w-64 md:w-72 focus:outline-none focus:border-telecom-cyan placeholder:text-text-muted font-mono"
+                placeholder="SEARCH MSISDN / IMEI / IMSI..."
+                className="pl-8 pr-3 py-1.5 bg-bg-base border border-border-subtle text-xs text-text-primary w-64 md:w-72 focus:outline-none focus:border-telecom-cyan placeholder:text-text-muted"
               />
             </div>
             <button
               type="button"
               onClick={() => setSearchTarget("+91 98250 XXXXX")}
-              className="px-3 py-1.5 bg-surface-card hover:bg-surface-overlay border border-border-subtle rounded-md text-xs text-text-muted hover:text-text-primary cursor-pointer transition-colors"
+              className="px-2.5 py-1.5 bg-surface-card hover:bg-surface-overlay border border-border-subtle text-xs text-text-muted hover:text-text-primary cursor-pointer"
             >
-              Reset
+              RESET
             </button>
           </div>
         </div>
 
         {/* ================= 2. METRICS STRIP ================= */}
-        <div className="px-4 py-3 border-b border-border-subtle/60 bg-bg-base grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3 text-xs shrink-0">
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Total Sessions</span>
-            <span className="text-lg font-bold text-text-primary font-mono">148</span>
-            <span className="text-[10px] text-text-muted block">Over 45 Days</span>
+        <div className="px-3 py-2 border-b border-border-subtle/60 bg-bg-base grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-2 text-[11px] shrink-0">
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">TOTAL INTERACTIONS</span>
+            <span className="text-base font-bold text-text-primary">148 Sessions</span>
+            <span className="text-[9px] text-text-muted">Over 45 Days</span>
           </div>
 
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Unique Contacts</span>
-            <span className="text-lg font-bold text-telecom-cyan font-mono">18 MSISDNs</span>
-            <span className="text-[10px] text-text-muted block">3 Suspect Nodes</span>
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">UNIQUE CONTACTS</span>
+            <span className="text-base font-bold text-telecom-cyan">18 MSISDNs</span>
+            <span className="text-[9px] text-text-muted">3 Suspect Nodes</span>
           </div>
 
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Active Days</span>
-            <span className="text-lg font-bold text-text-primary font-mono">24 Days</span>
-            <span className="text-[10px] text-text-muted block">Peak: Aug 14-16</span>
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">ACTIVE DAYS</span>
+            <span className="text-base font-bold text-text-primary">24 Days</span>
+            <span className="text-[9px] text-text-muted">Peak: Aug 14-16</span>
           </div>
 
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Avg Duration</span>
-            <span className="text-lg font-bold text-emerald-400 font-mono">4m 18s</span>
-            <span className="text-[10px] text-text-muted block">Max: 23m 40s</span>
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">AVG CALL DURATION</span>
+            <span className="text-base font-bold text-emerald-400">4m 18s</span>
+            <span className="text-[9px] text-text-muted">Max: 23m 40s</span>
           </div>
 
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Flagged Calls</span>
-            <span className="text-lg font-bold text-threat-crimson font-mono">14</span>
-            <span className="text-[10px] text-threat-crimson block font-medium">Mule Co-timing</span>
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">FLAGGED CALLS</span>
+            <span className="text-base font-bold text-threat-crimson">14 Sessions</span>
+            <span className="text-[9px] text-threat-crimson">Mule Co-timing</span>
           </div>
 
-          <div className="p-3 bg-surface-card rounded-lg border border-border-subtle space-y-1">
-            <span className="text-[11px] text-text-muted block font-medium">Cell Sectors</span>
-            <span className="text-lg font-bold text-amber-300 font-mono">4 Towers</span>
-            <span className="text-[10px] text-text-muted block">Mumbai / Andheri</span>
+          <div className="p-2 bg-surface-card border border-border-subtle">
+            <span className="text-[9px] text-text-muted uppercase block">CELL SECTORS</span>
+            <span className="text-base font-bold text-amber-300">4 BTS Towers</span>
+            <span className="text-[9px] text-text-muted">Mumbai / Andheri</span>
           </div>
         </div>
 
         {/* Ethical Safeguard Banner */}
-        <div className="px-4 py-2 bg-blue-950/25 border-b border-blue-500/30 text-blue-200/90 text-[11px] flex items-center justify-between">
+        <div className="px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/30 text-blue-200/90 text-[10px] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-3.5 h-3.5 text-telecom-cyan shrink-0" />
             <span>
-              <strong>Statutory Evidentiary Principle:</strong> Telephony contact establishes technical communication, not shared criminal conspiracy. Nexus requires corroboration via statements or panchnama.
+              <strong>STATUTORY EVIDENTIARY PRINCIPLE:</strong> Telephony contact between two numbers establishes technical communication, NOT shared criminal conspiracy. Judicial nexus requires corroboration via witness statements or panchnama.
             </span>
           </div>
-          <span className="text-text-muted text-[10px] font-mono">Section 65B Compliant</span>
+          <span className="text-text-muted text-[9px] font-mono">INDIAN EVIDENCE ACT SEC 65B</span>
         </div>
 
         {/* ================= 3. CONTROLS & TAB SWITCHER ================= */}
-        <div className="px-4 py-2 border-b border-border-subtle bg-surface-card flex flex-wrap items-center justify-between gap-2 text-xs shrink-0">
-          <div className="flex items-center bg-bg-base rounded-md border border-border-subtle p-0.5">
+        <div className="px-3 py-1.5 border-b border-border-subtle bg-surface-card flex flex-wrap items-center justify-between gap-2 text-xs shrink-0">
+          <div className="flex items-center border border-border-subtle">
             <button
               type="button"
               onClick={() => setActiveTab("call_graph")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "call_graph"
-                  ? "bg-telecom-cyan/15 text-telecom-cyan font-semibold"
+              className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "call_graph"
+                  ? "bg-bg-base text-telecom-cyan border-b-2 border-telecom-cyan"
                   : "text-text-muted hover:text-text-primary"
-              }`}
+                }`}
             >
-              Call Relationship Graph
+              CALL RELATIONSHIP GRAPH
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("records")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "records"
-                  ? "bg-telecom-cyan/15 text-telecom-cyan font-semibold"
+              className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "records"
+                  ? "bg-bg-base text-telecom-cyan border-b-2 border-telecom-cyan"
                   : "text-text-muted hover:text-text-primary"
-              }`}
+                }`}
             >
-              CDR Records Log
+              CDR RECORDS LOG
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("temporal")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "temporal"
-                  ? "bg-telecom-cyan/15 text-telecom-cyan font-semibold"
+              className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "temporal"
+                  ? "bg-bg-base text-telecom-cyan border-b-2 border-telecom-cyan"
                   : "text-text-muted hover:text-text-primary"
-              }`}
+                }`}
             >
-              Temporal &amp; Tower Analysis
+              TEMPORAL / BTS ANALYSIS
             </button>
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center gap-1.5 text-xs">
-            <span className="text-[11px] text-text-muted">Type:</span>
+          <div className="flex items-center gap-1.5 text-[11px]">
+            <span className="text-[10px] text-text-muted uppercase">TYPE:</span>
             {(["ALL", "VOICE_CALL", "SMS", "ENCRYPTED_DATA_VOIP"] as const).map((ct) => (
               <button
                 key={ct}
                 type="button"
                 onClick={() => setSelectedCallType(ct)}
-                className={`px-2.5 py-1 rounded-md border text-xs transition-colors cursor-pointer ${
-                  selectedCallType === ct
-                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 font-semibold"
-                    : "border-border-subtle text-text-muted hover:text-text-primary hover:bg-surface-overlay"
-                }`}
+                className={`px-2 py-0.5 border text-[10px] transition-colors cursor-pointer ${selectedCallType === ct
+                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 font-bold"
+                    : "border-border-subtle text-text-muted hover:text-text-primary"
+                  }`}
               >
                 {ct.replace(/_/g, " ")}
               </button>
@@ -458,13 +454,12 @@ export default function CdrIntelligencePage() {
                         <td className="py-2 px-2 text-text-primary">{rec.targetNumber}</td>
                         <td className="py-2 px-2">
                           <span
-                            className={`px-1.5 py-0.5 text-[9px] font-bold border ${
-                              rec.callType === "ENCRYPTED_DATA_VOIP"
+                            className={`px-1.5 py-0.5 text-[9px] font-bold border ${rec.callType === "ENCRYPTED_DATA_VOIP"
                                 ? "border-purple-500/40 bg-purple-500/10 text-purple-300"
                                 : rec.callType === "SMS"
-                                ? "border-amber-500/40 bg-amber-500/10 text-amber-300"
-                                : "border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan"
-                            }`}
+                                  ? "border-amber-500/40 bg-amber-500/10 text-amber-300"
+                                  : "border-telecom-cyan/40 bg-telecom-cyan/10 text-telecom-cyan"
+                              }`}
                           >
                             {rec.callType.replace(/_/g, " ")}
                           </span>

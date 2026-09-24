@@ -77,23 +77,23 @@ export default function CasesWorkspacePage() {
 
   return (
     <WorkstationShell activeCaseId={activeCase.id} onCaseChange={setSelectedCaseId}>
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-sans select-none">
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-mono select-none">
         {/* ================= 1. HEADER & SEARCH ================= */}
-        <div className="p-3.5 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
+        <div className="p-3 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan flex items-center justify-center">
+            <div className="p-2 border border-telecom-cyan/30 bg-telecom-cyan/10 text-telecom-cyan">
               <Briefcase className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-text-primary tracking-wide">
-                  Case Dossiers &amp; Judicial Intelligence
+                <h1 className="text-sm font-bold text-text-primary tracking-wider uppercase">
+                  CASE DOSSIER & FIR JUDICIAL INTELLIGENCE
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded border border-emerald-500/40 bg-emerald-500/10 text-emerald-400">
-                  Criminal Procedure Compliant
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-emerald-500/40 bg-emerald-500/10 text-emerald-400">
+                  CRIMINAL PROCEDURE COMPLIANT
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-[11px] text-text-muted">
                 Statutory tracking across FIR, Section 65B forensics, and trial prosecution stages.
               </p>
             </div>
@@ -106,11 +106,10 @@ export default function CasesWorkspacePage() {
                 key={c.id}
                 type="button"
                 onClick={() => setSelectedCaseId(c.id)}
-                className={`px-3 py-1 text-xs font-mono font-medium rounded-md border transition-all cursor-pointer ${
-                  activeCase.id === c.id
-                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10 shadow-sm"
-                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-overlay"
-                }`}
+                className={`px-2.5 py-1 text-[11px] font-bold border transition-colors cursor-pointer ${activeCase.id === c.id
+                    ? "border-telecom-cyan text-telecom-cyan bg-telecom-cyan/10"
+                    : "border-border-subtle text-text-secondary hover:text-text-primary hover:bg-surface-card"
+                  }`}
               >
                 {c.id}
               </button>
@@ -121,102 +120,100 @@ export default function CasesWorkspacePage() {
         {/* ================= 2. WORKSPACE MAIN SPLIT ================= */}
         <div className="flex-1 flex overflow-hidden">
           {/* LEFT: Case Summary Card & Legal Stage Timeline */}
-          <div className="w-full md:w-84 border-r border-border-subtle bg-bg-base flex flex-col shrink-0 overflow-y-auto custom-scrollbar p-3.5 space-y-3">
-            <div className="p-3.5 bg-surface-card rounded-lg border border-border-subtle space-y-2.5">
+          <div className="w-full md:w-80 border-r border-border-subtle bg-bg-base flex flex-col shrink-0 overflow-y-auto custom-scrollbar p-3 space-y-3">
+            <div className="p-3 bg-surface-card border border-border-subtle space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-telecom-cyan font-mono">{activeCase.caseNumber}</span>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded border border-threat-crimson/40 bg-threat-crimson/10 text-threat-crimson">
-                  {activeCase.priority} Priority
+                <span className="text-xs font-bold text-telecom-cyan">{activeCase.caseNumber}</span>
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-threat-crimson/40 bg-threat-crimson/10 text-threat-crimson">
+                  {activeCase.priority}
                 </span>
               </div>
 
-              <h2 className="text-xs font-semibold text-text-primary leading-snug">
+              <h2 className="text-xs font-bold text-text-primary leading-snug">
                 {activeCase.title}
               </h2>
 
-              <div className="text-[11px] text-text-muted space-y-1.5 pt-2 border-t border-border-subtle">
-                <div className="flex justify-between">
-                  <span className="text-text-muted">Investigating Officer:</span>
-                  <span className="text-text-primary font-medium">{activeCase.leadInvestigator.name}</span>
+              <div className="text-[10px] text-text-muted space-y-1 pt-1 border-t border-border-subtle">
+                <div>
+                  <span className="text-text-muted block">INVESTIGATING OFFICER:</span>
+                  <span className="text-text-primary font-semibold">{activeCase.leadInvestigator.name}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-text-muted">Division:</span>
+                <div>
+                  <span className="text-text-muted block">POLICE DIVISION:</span>
                   <span className="text-text-secondary">{activeCase.leadInvestigator.division}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-text-muted">Registered:</span>
-                  <span className="text-text-primary font-mono">{activeCase.firs[0]?.lodgedDate}</span>
+                <div>
+                  <span className="text-text-muted block">REGISTRATION DATE:</span>
+                  <span className="text-text-primary">{activeCase.firs[0]?.lodgedDate}</span>
                 </div>
               </div>
             </div>
 
             {/* Statutory Legal Taxonomy Timeline */}
-            <div className="p-3.5 bg-surface-card rounded-lg border border-border-subtle space-y-2.5">
-              <div className="text-xs font-semibold text-text-primary flex items-center gap-2 pb-1.5 border-b border-border-subtle">
-                <Scale className="w-3.5 h-3.5 text-telecom-cyan" />
-                <span>Judicial Proceeding Taxonomy</span>
+            <div className="p-3 bg-surface-card border border-border-subtle space-y-2">
+              <div className="text-[10px] font-bold text-text-primary uppercase tracking-wider flex items-center gap-1.5 pb-1 border-b border-border-subtle">
+                <Scale className="w-3 h-3 text-telecom-cyan" />
+                <span>JUDICIAL PROCEEDING TAXONOMY</span>
               </div>
 
-              <div className="space-y-2.5 pt-1">
+              <div className="space-y-2 pt-1">
                 {LEGAL_TAXONOMY_STEPS.map((step, idx) => {
                   const status = getLegalStepStatus(step.id, activeCase.status);
                   return (
-                    <div key={step.id} className="flex items-start gap-2.5 text-xs">
+                    <div key={step.id} className="flex items-start gap-2 text-[10px]">
                       <div
-                        className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 mt-0.5 border ${
-                          status === "COMPLETED"
+                        className={`w-4 h-4 rounded-full flex items-center justify-center text-[9px] font-bold shrink-0 mt-0.5 border ${status === "COMPLETED"
                             ? "bg-emerald-500/20 text-emerald-400 border-emerald-500"
                             : status === "ACTIVE"
-                            ? "bg-telecom-cyan/20 text-telecom-cyan border-telecom-cyan animate-pulse"
-                            : "bg-surface-card text-text-muted border-border-subtle"
-                        }`}
+                              ? "bg-telecom-cyan/20 text-telecom-cyan border-telecom-cyan animate-pulse"
+                              : "bg-surface-card text-text-muted border-border-subtle"
+                          }`}
                       >
                         {status === "COMPLETED" ? "✓" : idx + 1}
                       </div>
                       <div>
                         <div
-                          className={`font-semibold ${
-                            status === "ACTIVE"
+                          className={`font-bold ${status === "ACTIVE"
                               ? "text-telecom-cyan"
                               : status === "COMPLETED"
-                              ? "text-emerald-400"
-                              : "text-text-muted"
-                          }`}
+                                ? "text-emerald-400"
+                                : "text-text-muted"
+                            }`}
                         >
                           {step.label}
                         </div>
-                        <div className="text-[11px] text-text-muted leading-tight">{step.desc}</div>
+                        <div className="text-[9px] text-text-muted leading-tight">{step.desc}</div>
                       </div>
                     </div>
                   );
                 })}
               </div>
 
-              <div className="p-2.5 bg-blue-950/25 border border-blue-500/30 rounded-md text-blue-200/90 text-[11px] leading-relaxed mt-2">
-                <strong>Legal Presumption:</strong> Named persons in FIR are presumed innocent until judicial verdict.
+              <div className="p-2 bg-blue-950/20 border border-blue-500/30 text-blue-200/90 text-[9px] leading-relaxed mt-2">
+                <strong>LEO SAFETIME RULE:</strong> Persons named in FIR are treated under legal presumption of innocence until trial verdict.
               </div>
             </div>
 
             {/* Evidence & Entity Breakdown Counts */}
-            <div className="p-3.5 bg-surface-card rounded-lg border border-border-subtle space-y-2 text-xs">
-              <div className="text-[11px] font-semibold text-text-muted uppercase tracking-wider mb-1">
-                Associated Artifacts
+            <div className="p-3 bg-surface-card border border-border-subtle space-y-1.5 text-[11px]">
+              <div className="text-[10px] font-bold text-text-muted uppercase tracking-wider mb-1">
+                ASSOCIATED ARTIFACTS
               </div>
               <div className="flex justify-between">
                 <span className="text-text-muted">FIR Records:</span>
-                <span className="text-text-primary font-mono font-medium">{activeCase.firs.length}</span>
+                <span className="text-text-primary font-bold">{activeCase.firs.length}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-text-muted">Vault Evidence:</span>
-                <span className="text-telecom-cyan font-mono font-medium">{caseEvidence.length} items</span>
+                <span className="text-telecom-cyan font-bold">{caseEvidence.length} items</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-text-muted">AI Risk Evaluations:</span>
-                <span className="text-purple-400 font-mono font-medium">{caseAssessments.length} files</span>
+                <span className="text-purple-400 font-bold">{caseAssessments.length} files</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-text-muted">Linked Network Entities:</span>
-                <span className="text-emerald-400 font-mono font-medium">{activeCase.associatedEntityIds.length} nodes</span>
+                <span className="text-emerald-400 font-bold">{activeCase.associatedEntityIds.length} nodes</span>
               </div>
             </div>
           </div>
@@ -224,24 +221,23 @@ export default function CasesWorkspacePage() {
           {/* RIGHT: Detailed Workspace Tabs */}
           <div className="flex-1 flex flex-col overflow-hidden bg-bg-base">
             {/* Tabs Header */}
-            <div className="px-4 border-b border-border-subtle bg-surface-card flex items-center gap-2 shrink-0 overflow-x-auto">
+            <div className="px-3 border-b border-border-subtle bg-surface-card flex items-center gap-1 shrink-0 overflow-x-auto">
               {[
-                { id: "overview", label: "Overview" },
-                { id: "firs", label: "FIR Dossier & Accused" },
-                { id: "entities", label: "Linked Entities" },
-                { id: "evidence", label: "Case Evidence" },
-                { id: "timeline", label: "Timeline" },
-                { id: "notes", label: "Case Diary Notes" },
+                { id: "overview", label: "OVERVIEW" },
+                { id: "firs", label: "FIR DOSSIER & ACCUSED" },
+                { id: "entities", label: "LINKED ENTITIES" },
+                { id: "evidence", label: "CASE EVIDENCE" },
+                { id: "timeline", label: "TIMELINE" },
+                { id: "notes", label: "INVESTIGATOR NOTES" },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   type="button"
                   onClick={() => setActiveTab(tab.id as CaseTab)}
-                  className={`px-3.5 py-2.5 text-xs font-medium transition-all cursor-pointer border-b-2 ${
-                    activeTab === tab.id
-                      ? "border-telecom-cyan text-telecom-cyan font-semibold bg-surface-card"
+                  className={`px-3 py-2 text-xs font-bold transition-colors cursor-pointer border-b-2 ${activeTab === tab.id
+                      ? "border-telecom-cyan text-telecom-cyan bg-surface-card"
                       : "border-transparent text-text-muted hover:text-text-primary"
-                  }`}
+                    }`}
                 >
                   {tab.label}
                 </button>
@@ -332,13 +328,12 @@ export default function CasesWorkspacePage() {
                               <div className="flex items-center justify-between">
                                 <span className="text-xs font-bold text-text-primary">{person.name}</span>
                                 <span
-                                  className={`px-1.5 py-0.5 text-[9px] font-bold border ${
-                                    person.arrestStatus === "ARRESTED_CUSTODY"
+                                  className={`px-1.5 py-0.5 text-[9px] font-bold border ${person.arrestStatus === "ARRESTED_CUSTODY"
                                       ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"
                                       : person.arrestStatus === "ABSCONDING"
-                                      ? "border-threat-crimson/40 bg-threat-crimson/10 text-threat-crimson"
-                                      : "border-amber-500/40 bg-amber-500/10 text-amber-300"
-                                  }`}
+                                        ? "border-threat-crimson/40 bg-threat-crimson/10 text-threat-crimson"
+                                        : "border-amber-500/40 bg-amber-500/10 text-amber-300"
+                                    }`}
                                 >
                                   {person.arrestStatus.replace(/_/g, " ")}
                                 </span>

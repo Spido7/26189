@@ -61,23 +61,26 @@ function AiEngineContent() {
 
   return (
     <WorkstationShell activeCaseId={currentAssessment.caseRef}>
-      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-sans select-none">
+      <div className="flex-1 flex flex-col h-full overflow-hidden bg-bg-base font-mono select-none">
         {/* ================= 1. HEADER ================= */}
-        <div className="p-3.5 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
+        <div className="p-3 border-b border-border-subtle bg-surface-card flex flex-col md:flex-row md:items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg border border-purple-500/30 bg-purple-500/10 text-purple-400 flex items-center justify-center">
+            <div className="p-2 border border-purple-500/30 bg-purple-500/10 text-purple-400">
               <Cpu className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold text-text-primary tracking-wide">
-                  AI Investigation Engine &amp; Explainability (XAI)
+                <h1 className="text-sm font-bold text-text-primary tracking-wider uppercase">
+                  AI INVESTIGATION ENGINE & EXPLAINABILITY (XAI)
                 </h1>
-                <span className="px-2 py-0.5 text-[10px] font-medium rounded border border-purple-500/40 bg-purple-500/10 text-purple-300">
-                  TensorRT 3-Stage Pipeline
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-purple-500/40 bg-purple-500/10 text-purple-300">
+                  TENSORRT 3-STAGE PIPELINE
+                </span>
+                <span className="px-1.5 py-0.5 text-[9px] font-bold border border-amber-500/40 bg-amber-500/10 text-amber-400">
+                  DEMO / SIMULATED ENVIRONMENT
                 </span>
               </div>
-              <p className="text-xs text-text-muted mt-0.5">
+              <p className="text-[11px] text-text-muted">
                 Sequential cyber telemetry autoencoders, GNN behavioral correlation, and Bayesian risk fusion.
               </p>
             </div>
@@ -85,17 +88,16 @@ function AiEngineContent() {
 
           {/* Assessment Target Selector */}
           <div className="flex items-center gap-2">
-            <span className="text-[11px] text-text-muted font-medium">Target:</span>
+            <span className="text-[10px] text-text-muted uppercase">TARGET:</span>
             {assessments.map((a) => (
               <button
                 key={a.id}
                 type="button"
                 onClick={() => setSelectedAssessmentId(a.id)}
-                className={`px-3 py-1 text-xs font-mono font-medium rounded-md border transition-all cursor-pointer ${
-                  currentAssessment.id === a.id
-                    ? "border-purple-500 text-purple-300 bg-purple-500/15 font-semibold"
+                className={`px-2.5 py-1 text-xs font-bold border transition-colors cursor-pointer ${currentAssessment.id === a.id
+                    ? "border-purple-500 text-purple-300 bg-purple-500/10"
                     : "border-border-subtle text-text-muted hover:text-text-primary hover:bg-surface-card"
-                }`}
+                  }`}
               >
                 {a.targetIdentifier}
               </button>
@@ -104,57 +106,52 @@ function AiEngineContent() {
         </div>
 
         {/* Ethical Safeguard Banner */}
-        <div className="px-4 py-2 bg-blue-950/25 border-b border-blue-500/30 text-blue-200/90 text-[11px] flex items-center justify-between">
+        <div className="px-3 py-1.5 bg-blue-950/20 border-b border-blue-500/30 text-blue-200/90 text-[10px] flex items-center justify-between">
           <div className="flex items-center gap-2">
             <ShieldAlert className="w-3.5 h-3.5 text-telecom-cyan shrink-0" />
             <span>
-              <strong>Ethical Law Enforcement Compliance:</strong> AI assessments produce investigative leads, not legal determinations of guilt. Every inference requires human investigator sign-off before court submission.
+              <strong>ETHICAL LAW ENFORCEMENT COMPLIANCE:</strong> AI assessments produce investigative leads, NOT legal determinations of guilt. Every automated inference requires human investigator sign-off before submission in court.
             </span>
           </div>
-          <span className="text-purple-300 text-[10px] font-mono">Human-in-the-Loop Mandated</span>
+          <span className="text-purple-300 text-[9px] font-mono">HUMAN-IN-THE-LOOP MANDATED</span>
         </div>
 
         {/* Navigation Tabs */}
-        <div className="px-4 py-2 border-b border-border-subtle bg-surface-card flex items-center gap-2 text-xs shrink-0">
-          <div className="flex items-center bg-bg-base rounded-md border border-border-subtle p-0.5">
-            <button
-              type="button"
-              onClick={() => setActiveTab("pipeline")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "pipeline"
-                  ? "bg-purple-500/15 text-purple-300 font-semibold"
-                  : "text-text-muted hover:text-text-primary"
+        <div className="px-3 py-1.5 border-b border-border-subtle bg-surface-card flex items-center gap-2 text-xs shrink-0">
+          <button
+            type="button"
+            onClick={() => setActiveTab("pipeline")}
+            className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "pipeline"
+                ? "bg-bg-base text-purple-300 border-b-2 border-purple-500"
+                : "text-text-muted hover:text-text-primary"
               }`}
-            >
-              3-Stage Architecture
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("explainability")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "explainability"
-                  ? "bg-purple-500/15 text-purple-300 font-semibold"
-                  : "text-text-muted hover:text-text-primary"
+          >
+            3-STAGE MODEL ARCHITECTURE
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("explainability")}
+            className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "explainability"
+                ? "bg-bg-base text-purple-300 border-b-2 border-purple-500"
+                : "text-text-muted hover:text-text-primary"
               }`}
-            >
-              Why Was This Flagged? (SHAP)
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("monitoring")}
-              className={`px-3 py-1 rounded text-xs font-medium cursor-pointer transition-colors ${
-                activeTab === "monitoring"
-                  ? "bg-purple-500/15 text-purple-300 font-semibold"
-                  : "text-text-muted hover:text-text-primary"
+          >
+            WHY WAS THIS FLAGGED? (FEATURE ATTRIBUTIONS)
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab("monitoring")}
+            className={`px-3 py-1 font-bold cursor-pointer transition-colors ${activeTab === "monitoring"
+                ? "bg-bg-base text-purple-300 border-b-2 border-purple-500"
+                : "text-text-muted hover:text-text-primary"
               }`}
-            >
-              Model Latency &amp; Audit
-            </button>
-          </div>
+          >
+            MODEL LATENCY & AUDIT
+          </button>
         </div>
 
         {/* ================= 2. WORKSPACE BODY ================= */}
-        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar space-y-4">
+        <div className="flex-1 overflow-y-auto p-3 custom-scrollbar space-y-3">
           {/* TAB 1: 3-STAGE PIPELINE ARCHITECTURE */}
           {activeTab === "pipeline" && (
             <div className="space-y-4">
